@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Class to store information about a gym membership
+class GymMembership {
+public:
+    string name;
+    int timing;
+    // Constructor
+    GymMembership(string n, int t) {
+        name = n;
+        timing = t;
+    }
+};
+
+int main() {
+    int choice;
+    string name;
+    int timing;
+    vector<GymMembership> members; // Store all created memberships
+
+    cout << "Welcome to the Gym Management System!" << endl;
+    do {
+        // Show menu
+        cout << "-------------------------" << endl;
+        cout << "1. Create a new membership" << endl;
+        cout << "2. View existing memberships" << endl;
+        cout << "3. Exit" << endl;
+        cout << "-------------------------" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Create a new membership
+                cout << "Enter your name: ";
+                cin.ignore(); // Clear the newline character from the previous input
+                getline(cin, name);
+                cout << "Select timing (1 for morning, 2 for afternoon, 3 for evening): ";
+                cin >> timing;
+                members.push_back(GymMembership(name, timing)); // Add the new membership to the vector
+                cout << "Membership created successfully!" << endl;
+                break;
+
+            case 2:
+                // View existing memberships
+                if (!members.empty()) {
+                    cout << "Existing memberships:" << endl;
+                    for (size_t i = 0; i < members.size(); ++i) {
+                        cout << "Membership " << i + 1 << ":" << endl;
+                        cout << "Name: " << members[i].name << endl;
+                        cout << "Timing: ";
+                        switch (members[i].timing) {
+                            case 1:
+                                cout << "Morning";
+                                break;
+                            case 2:
+                                cout << "Afternoon";
+                                break;
+                            case 3:
+                                cout << "Evening";
+                                break;
+                            default:
+                                cout << "Invalid timing";
+                        }
+                        cout << endl;
+                    }
+                } else {
+                    cout << "No memberships found!" << endl;
+                }
+                break;
+
+            case 3:
+                // Exit
+                cout << "Thank you for using the Gym Management System!" << endl;
+                break;
+
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+    } while (choice != 3);
+
+    return 0;
+}
